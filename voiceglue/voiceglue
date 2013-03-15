@@ -1918,7 +1918,8 @@ sub clear_play_and_rec
     delete $fhinfo->{"rec_maxtime"};
     delete $fhinfo->{"rec_dtmfterm"};
     delete $fhinfo->{"record_tone"};
-    delete $fhinfo->{"rec_file"};
+    # FIXME: find out proper way to pass file name to http request
+    # delete $fhinfo->{"rec_file"};
     delete $fhinfo->{"timed_out"};
     delete $fhinfo->{"got_termchar"};
 };
@@ -2827,6 +2828,9 @@ sub handle_ovxi_httpget
     (++$::Next_hcrequest_id >= 10000) && ($::Next_hcrequest_id = 1000);
     @hc_request_options = ($parsevxml ? "v" : "x");
     $hc_options = join (":", @hc_request_options);
+
+    my($rec_file) = $fhinfo->{"rec_file"};
+    $postdata = $postdata . ":rec_file=$rec_file";
 
     ##  Make httpcache request
     @hc_request_items = ();
