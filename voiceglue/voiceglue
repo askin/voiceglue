@@ -5866,7 +5866,8 @@ sub read_configfile
       || mkdir ($::VgCacheDir)
 	|| usage ("Bad ast_sound_dir or --astsounddir: " .
 		  $::AstSoundDir . " not present and cannot be made: $!");
-    foreach $type ("tts", "url", "rec", "link", "cookie")
+    # FIXME: make it parametric
+    foreach $type ("tts", "url", "link", "cookie")
     {
 	$cache_dir = join ("/", $::VgCacheDir, "$type");
 	system ("rm", "-r", "-f", $cache_dir);
